@@ -86,46 +86,55 @@
             <div class="service-card">
               <div class="icon-box"><i class="fa-solid fa-book"></i></div>
               <h3>Book Keeping</h3>
+              <button type="button" class="service-btn" onclick="openServiceForm('Book Keeping')">Get Service</button>
             </div>
             <div class="service-card">
               <div class="icon-box"><i class="fa-solid fa-users-gear"></i></div>
               <h3>Payroll Management</h3>
+              <button type="button" class="service-btn" onclick="openServiceForm('Payroll Management')">Get Service</button>
             </div>
             <div class="service-card">
               <div class="icon-box">
                 <i class="fa-solid fa-file-invoice-dollar"></i>
               </div>
               <h3>Tax Preparation & Compliance</h3>
+              <button type="button" class="service-btn" onclick="openServiceForm('Tax Preparation & Compliance')">Get Service</button>
             </div>
             <div class="service-card">
               <div class="icon-box"><i class="fa-solid fa-calculator"></i></div>
               <h3>Tax Audits & Support</h3>
+              <button type="button" class="service-btn" onclick="openServiceForm('Tax Audits & Support')">Get Service</button>
             </div>
             <div class="service-card">
               <div class="icon-box">
                 <i class="fa-solid fa-laptop-code"></i>
               </div>
               <h3>System Setup & Installation</h3>
+              <button type="button" class="service-btn" onclick="openServiceForm('System Setup & Installation')">Get Service</button>
             </div>
             <div class="service-card">
               <div class="icon-box"><i class="fa-solid fa-chart-pie"></i></div>
               <h3>Financial Reporting</h3>
+              <button type="button" class="service-btn" onclick="openServiceForm('Financial Reporting')">Get Service</button>
             </div>
             <div class="service-card">
               <div class="icon-box">
                 <i class="fa-solid fa-building-shield"></i>
               </div>
               <h3>KRA & Statutory Compliance</h3>
+              <button type="button" class="service-btn" onclick="openServiceForm('KRA & Statutory Compliance')">Get Service</button>
             </div>
             <div class="service-card">
               <div class="icon-box"><i class="fa-solid fa-percent"></i></div>
               <h3>VAT Filing & Returns</h3>
+              <button type="button" class="service-btn" onclick="openServiceForm('VAT Filing & Returns')">Get Service</button>
             </div>
             <div class="service-card">
               <div class="icon-box">
                 <i class="fa-solid fa-handshake-angle"></i>
               </div>
               <h3>Business Advisory & Consultancy</h3>
+              <button type="button" class="service-btn" onclick="openServiceForm('Business Advisory & Consultancy')">Get Service</button>
             </div>
           </div>
         </div>
@@ -233,7 +242,7 @@
         <div class="contact-form-box">
           <h3>Request a Call Back</h3>
 
-          <form action="https://formspree.io/f/meewjqng" method="POST">
+          <form action="send-email.php" method="POST">
             <div class="form-group">
               <input type="text" name="name" placeholder="Your Name" required />
             </div>
@@ -258,10 +267,120 @@
         </div>
       </div>
 
+      <!-- GOOGLE MAP SECTION -->
+      <div class="map-section">
+        <h3>Find Us</h3>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7715469999994!2d36.6753!3d-1.3521!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1d4c8d4c8d4d%3A0x8d4c8d4c8d4c8d4c!2sKaren%20Village%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1686500000000" 
+          width="100%" 
+          height="400" 
+          style="border:0; border-radius: 12px;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
       <div class="bottom-bar">
+        <div class="social-media">
+          <a href="https://www.linkedin.com/company/clearledger-consultants" target="_blank" title="LinkedIn">
+            <i class="fa-brands fa-linkedin"></i>
+          </a>
+          <a href="https://www.twitter.com" target="_blank" title="Twitter">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+          <a href="https://www.facebook.com/clearledgerconsultants" target="_blank" title="Facebook">
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a href="https://www.instagram.com/clearledgerconsultants" target="_blank" title="Instagram">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </div>
         <p>&copy; 2026 ClearLedger Consultants Limited.</p>
       </div>
     </footer>
+
+    <!-- Job Application Modal -->
+    <div id="jobModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Apply for Position</h2>
+          <span class="close" onclick="closeJobApplication()">&times;</span>
+        </div>
+        
+        <form id="jobForm" action="https://formspree.io/f/meewjqng" method="POST">
+          <div class="form-group">
+            <label for="job-position">Position *</label>
+            <input type="text" id="job-position" name="position" placeholder="Position name" readonly required />
+          </div>
+
+          <div class="form-group">
+            <label for="job-name">Full Name *</label>
+            <input type="text" id="job-name" name="name" placeholder="Enter your full name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="job-email">Email Address *</label>
+            <input type="email" id="job-email" name="email" placeholder="Enter your email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="job-phone">Phone Number *</label>
+            <input type="tel" id="job-phone" name="phone" placeholder="Enter your phone number" required />
+          </div>
+
+          <div class="form-group">
+            <label for="job-experience">Years of Experience *</label>
+            <input type="number" id="job-experience" name="experience" placeholder="e.g., 5" required />
+          </div>
+
+          <div class="form-group">
+            <label for="job-cover">Cover Letter / Why are you interested? *</label>
+            <textarea id="job-cover" name="cover_letter" rows="4" placeholder="Tell us about yourself and why you're interested in this role..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-service-submit">Submit Application</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Service Inquiry Modal -->
+    <div id="serviceModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Inquire About Our Service</h2>
+          <span class="close" onclick="closeServiceForm()">&times;</span>
+        </div>
+        
+        <form id="serviceForm" action="send-email.php" method="POST">
+          <div class="form-group">
+            <label for="svc-name">Full Name *</label>
+            <input type="text" id="svc-name" name="name" placeholder="Enter your full name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="svc-email">Email Address *</label>
+            <input type="email" id="svc-email" name="email" placeholder="Enter your email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="svc-phone">Phone Number *</label>
+            <input type="tel" id="svc-phone" name="phone" placeholder="Enter your phone number" required />
+          </div>
+
+          <div class="form-group">
+            <label for="svc-service">Service of Interest *</label>
+            <input type="text" id="svc-service" name="service" placeholder="Service name" readonly required />
+          </div>
+
+          <div class="form-group">
+            <label for="svc-message">Tell us more (Optional)</label>
+            <textarea id="svc-message" name="message" rows="4" placeholder="Describe your needs or questions..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-service-submit">Send Inquiry</button>
+        </form>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
