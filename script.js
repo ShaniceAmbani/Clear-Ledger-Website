@@ -10,45 +10,20 @@ if (mobileMenu && navList) {
 
 // ================= FORM SUBMISSION HANDLER ================= 
 
-// Handle all form submissions
+// Handle form submissions via Formspree
 document.addEventListener('submit', function(e) {
-    if (e.target.action.includes('send-email.php') || e.target.action.includes('formspree')) {
-        e.preventDefault();
-        
-        const form = e.target;
-        const formData = new FormData(form);
-        
-        // Disable submit button
-        const submitBtn = form.querySelector('button[type="submit"]');
+    if (e.target.action.includes('formspree.io')) {
+        // Formspree handles submission natively, but we can add feedback
+        const submitBtn = e.target.querySelector('button[type="submit"]');
         const originalBtnText = submitBtn.textContent;
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
         
-        // Send form data
-        fetch('send-email.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
+        // Re-enable button after a delay
+        setTimeout(() => {
             submitBtn.disabled = false;
             submitBtn.textContent = originalBtnText;
-            
-            if (data.success) {
-                // Show success message
-                alert('✓ ' + data.message);
-                form.reset();
-                closeServiceForm();
-            } else {
-                alert('✗ Error: ' + data.message);
-            }
-        })
-        .catch(error => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalBtnText;
-            alert('✗ Error sending message. Please try again.');
-            console.error('Error:', error);
-        });
+        }, 2000);
     }
 });
 
