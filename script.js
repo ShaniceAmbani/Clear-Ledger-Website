@@ -1,33 +1,98 @@
 // Mobile navigation overlay display activation trigger
 const mobileMenu = document.getElementById('mobile-menu');
 const navList = document.getElementById('nav-list');
+const mobileIcon = mobileMenu ? mobileMenu.querySelector('i') : null;
+const navLinks = navList ? navList.querySelectorAll('a') : [];
+
+function updateMobileIcon(isActive) {
+    if (!mobileIcon) return;
+    mobileIcon.classList.toggle('fa-bars', !isActive);
+    mobileIcon.classList.toggle('fa-xmark', isActive);
+}
+
+function toggleMobileNav() {
+    if (!navList || !mobileMenu) return;
+    const isActive = navList.classList.toggle('active');
+    mobileMenu.setAttribute('aria-expanded', String(isActive));
+    updateMobileIcon(isActive);
+}
 
 if (mobileMenu && navList) {
-    mobileMenu.addEventListener('click', () => {
-        navList.classList.toggle('active');
+    mobileMenu.addEventListener('click', toggleMobileNav);
+    mobileMenu.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleMobileNav();
+        }
+    });
+
+    navLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+            if (navList.classList.contains('active')) {
+                navList.classList.remove('active');
+                mobileMenu.setAttribute('aria-expanded', 'false');
+                updateMobileIcon(false);
+            }
+        });
     });
 }
 
-// ================= FORM SUBMISSION HANDLER ================= 
+async function handleFormSubmission(event) {
+    const form = event.target;
+    if (!form.action.includes('formspree.io')) return;
 
-// Handle form submissions via Formspree
-document.addEventListener('submit', function(e) {
-    if (e.target.action.includes('formspree.io')) {
-        // Formspree handles submission natively, but we can add feedback
-        const submitBtn = e.target.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn.textContent;
+    event.preventDefault();
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const statusElement = form.querySelector('.form-status');
+    const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit';
+
+    if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
-        
-        // Re-enable button after a delay
-        setTimeout(() => {
+    }
+    if (statusElement) {
+        statusElement.className = 'form-status';
+        statusElement.textContent = 'Sending your message...';
+    }
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: {
+                Accept: 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        if (result.ok === false) {
+            throw new Error(result.error || 'Submission failed');
+        }
+
+        if (statusElement) {
+            statusElement.classList.add('success');
+            statusElement.textContent = 'Thank you! Your message was sent successfully.';
+        }
+
+        form.reset();
+    } catch (error) {
+        if (statusElement) {
+            statusElement.classList.add('error');
+            statusElement.textContent = 'Sorry, something went wrong. Please try again later.';
+        }
+    } finally {
+        if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = originalBtnText;
-        }, 2000);
+        }
     }
-});
+}
 
-// ================= SERVICE INQUIRY MODAL ================= 
+document.addEventListener('submit', handleFormSubmission);
 
 // Open service form modal
 function openServiceForm(serviceName) {
@@ -37,6 +102,7 @@ function openServiceForm(serviceName) {
     if (modal && serviceInput) {
         serviceInput.value = serviceName;
         modal.style.display = 'block';
+        modal.setAttribute('aria-hidden', 'false');
     }
 }
 
@@ -45,10 +111,11 @@ function closeServiceForm() {
     const modal = document.getElementById('serviceModal');
     if (modal) {
         modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
     }
 }
 
-// Close modal when clicking outside of it
+// Close modals when clicking outside of them
 window.addEventListener('click', (event) => {
     const serviceModal = document.getElementById('serviceModal');
     if (event.target === serviceModal) {
@@ -56,7 +123,7 @@ window.addEventListener('click', (event) => {
     }
 });
 
-// Close modal with Escape key
+// Close modals with Escape key
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         closeServiceForm();
