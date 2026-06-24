@@ -49,6 +49,19 @@ As the developer, I was responsible for:
 
 The goal of this project was to create a professional digital presence for Clear Ledger and make it easier for potential clients to learn about available services and get in touch with the business.
 
+## Challenges
+
+One challenge was creating a professional website that clearly communicated financial and tax services while remaining simple and easy to navigate.
+
+## Lessons Learned
+
+This project improved my understanding of:
+
+- Responsive web design
+- Client-focused development
+- Deployment workflows
+- Form integrations using Formspree
+
 ## Contact
 
 **Developer:** Shanice Khanali Ambani
