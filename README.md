@@ -51,7 +51,7 @@ The goal of this project was to create a professional digital presence for Clear
 
 ## Contact
 
-**Developer:** Shanice Khanali
+**Developer:** Shanice Khanali Ambani
 
 LinkedIn: https://www.linkedin.com/in/shanice-khanali/
 
