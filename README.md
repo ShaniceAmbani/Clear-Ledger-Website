@@ -34,7 +34,7 @@ https://www.clear-ledger.co.ke/
 * Formspree
 * Vercel
 
-## 👩‍💻 My Role
+## My Role
 
 As the developer, I was responsible for:
 
